@@ -1,0 +1,15 @@
+name: op-test
+on: workflow_dispatch
+jobs:
+  load:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Load secret from 1Password
+        uses: 1password/load-secrets-action@v2
+        with:
+          export-env: true
+        env:
+          OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
+          SECRET: op://OPTest/demo-api/credential
+      - run: |
+          echo "Secret: $SECRET"
